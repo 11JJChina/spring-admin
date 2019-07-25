@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: admin-server
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+
+  mail:
+    host: smtp.163.com
+    username: xxxxxxxx@163.com
+    password: 111111
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  boot:
+    admin:
+      notify:
+        mail:
+          from: XXXXX@163.com
+          to: XXXXXX@qq.com
+
+
+server:
+  port: 8769
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+  health:
+    db:
+      enabled: false
+    mail:
+      enabled: false
+    redis:
+      enabled: false
+    mongo:
+      enabled: false
